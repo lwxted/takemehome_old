@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+if [ "$1" = "pull" ] ; then
+  ${DIR}/repo_pull.sh $(echo "${*:2}")
+elif [ "$1" = "push" ] ; then
+  ${DIR}/repo_push.sh $(echo "${*:2}")
+fi

@@ -21,6 +21,10 @@ if ! [ -s $DB_REPO ] ; then
 fi
 
 CODE_DIR=$1
+if ! [ -d $CODE_DIR ] ; then
+  format_fail "$CODE_DIR not found."
+  exit 0
+fi
 
 # Enumerate through all repos
 cd $DB_REPO

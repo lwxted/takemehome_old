@@ -31,8 +31,8 @@ fi
 
 for PROJ in $*
 do
+  PROJ_NAME="$(basename $PROJ).git"
   if [ -d $PROJ ] ; then
-    PROJ_NAME="$(basename $PROJ).git"
     cd $PROJ
     if [ -s '.git' ] ; then
       msg="$PROJ_NAME is already a Git repo. We'll only setup upstreams."
@@ -61,14 +61,14 @@ do
     (
       (
         # Try to add a new remote dropbox_origin first
-        git remote add dropbox_origin "$DB_REPO/$PROJ_NAME" 2>/dev/null ||
+        git remote add dropbox_origin "$DB_REPO/$PROJ_NAME" ||
         # If that fails, dropbox_origin already exists -- we override it
         git remote set-url dropbox_origin "$DB_REPO/$PROJ_NAME"
       ) &&
       git push -q dropbox_origin master &&
       (
         # Try to add a new remote master first
-        git remote add all "$DB_REPO/$PROJ_NAME" 2>/dev/null ||
+        git remote add all "$DB_REPO/$PROJ_NAME" ||
         (
           # If that fails, master already exists -- we re-add the master
           git remote set-url all --push --delete "$DB_REPO/$PROJ_NAME" &&
@@ -79,7 +79,7 @@ do
     (bail $PROJ && continue)
 
     # Copy over config
-    cp $PROJ/.git/config $DB_REPO/$PROJ_NAME/local_config
+    cp -f $PROJ/.git/config $DB_REPO/$PROJ_NAME/local_config
 
     format_ok $PROJ
   else

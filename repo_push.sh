@@ -61,14 +61,14 @@ do
     (
       (
         # Try to add a new remote dropbox_origin first
-        git remote add dropbox_origin "$DB_REPO/$PROJ_NAME" ||
+        git remote add dropbox_origin "$DB_REPO/$PROJ_NAME" 2>/dev/null ||
         # If that fails, dropbox_origin already exists -- we override it
         git remote set-url dropbox_origin "$DB_REPO/$PROJ_NAME"
       ) &&
       git push -q dropbox_origin master &&
       (
         # Try to add a new remote master first
-        git remote add all "$DB_REPO/$PROJ_NAME" ||
+        git remote add all "$DB_REPO/$PROJ_NAME" 2>/dev/null ||
         (
           # If that fails, master already exists -- we re-add the master
           git remote set-url all --push --delete "$DB_REPO/$PROJ_NAME" &&

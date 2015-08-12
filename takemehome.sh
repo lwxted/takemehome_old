@@ -49,4 +49,5 @@ echo_status
 DEST="${HOME}/Documents/repo"
 format_prompt "Syncing all code from Dropbox repos to $DEST..."
 repo pull ${DEST}
+chown -R $USER:staff $DEST
 echo_status

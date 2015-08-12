@@ -10,11 +10,11 @@ HELP
   exit 0
 fi
 
+START_DIR=$(pwd)
+
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . ${DIR}/coloring.sh
 . ${DIR}/abs_path.sh
-
-START_DIR=$(pwd)
 
 bail() {
   format_fail "$1"
@@ -38,6 +38,7 @@ else
 	exit 0
 fi
 
+cd $START_DIR
 for PROJ in $*
 do
   PROJ=$(abs_path $PROJ)

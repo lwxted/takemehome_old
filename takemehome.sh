@@ -26,22 +26,23 @@ format_prompt "Setting up code environment..."
 
 # Sync repos
 format_prompt "Granting permissions to repo scripts and pushing to bin..."
-chmod +x ${DIR}/repo
-chmod +x ${DIR}/repo_pull.sh
-chmod +x ${DIR}/repo_push.sh
+sudo chmod +x ${DIR}/repo
+sudo chmod +x ${DIR}/repo_pull.sh
+sudo chmod +x ${DIR}/repo_push.sh
+sudo chmod +x ${DIR}/coloring.sh
 
 (
-  rm -f /usr/local/bin/repo &&
-  rm -f /usr/local/bin/repo_pull.sh &&
-  rm -f /usr/local/bin/repo_push.sh &&
-  rm -f /usr/local/bin/coloring.sh
+  sudo rm -f /usr/local/bin/repo &&
+  sudo rm -f /usr/local/bin/repo_pull.sh &&
+  sudo rm -f /usr/local/bin/repo_push.sh &&
+  sudo rm -f /usr/local/bin/coloring.sh
 ) || echo_status
 
 (
-  ln -s ${DIR}/repo /usr/local/bin/repo &&
-  ln -s ${DIR}/repo_pull.sh /usr/local/bin/repo_pull.sh &&
-  ln -s ${DIR}/repo_push.sh /usr/local/bin/repo_push.sh &&
-  ln -s ${DIR}/coloring.sh /usr/local/bin/coloring.sh
+  sudo ln -s ${DIR}/repo /usr/local/bin/repo &&
+  sudo ln -s ${DIR}/repo_pull.sh /usr/local/bin/repo_pull.sh &&
+  sudo ln -s ${DIR}/repo_push.sh /usr/local/bin/repo_push.sh &&
+  sudo ln -s ${DIR}/coloring.sh /usr/local/bin/coloring.sh
 ) || echo_status
 
 echo_status

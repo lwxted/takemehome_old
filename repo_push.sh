@@ -31,7 +31,6 @@ fi
 
 for PROJ in $*
 do
-  echo $PROJ
   if [ -d $PROJ ] ; then
     PROJ_NAME="$(basename $PROJ).git"
     cd $PROJ

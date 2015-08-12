@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
 
+# Not enough parameters, show help.
+if [ $# -lt 1 ] ; then
+
+cat<<HELP
+  Not enough arguments.
+HELP
+  exit 0
+fi
+
 # Pull all backed up repos in Dropbox to a user-specified location.
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . ${DIR}/coloring.sh
+. ${DIR}/abs_path.sh
 
 START_DIR=$(pwd)
 
@@ -20,7 +30,7 @@ if ! [ -s $DB_REPO ] ; then
   exit 0
 fi
 
-CODE_DIR=$1
+CODE_DIR=$(abs_path $1)
 if ! [ -d $CODE_DIR ] ; then
   format_fail "$CODE_DIR not found."
   exit 0
@@ -32,10 +42,10 @@ for d in *\.git/ ; do
   if ! [ -d $DB_REPO/$d ] ; then
     continue
   fi
-  if [ -d $CODE_DIR/$d ] ; then
+  d_x_git=${d%%\.git\/}
+  if [ -s $CODE_DIR/$d_x_git ] ; then
     bail "$d is already pulled down." && continue
   fi
-  d_x_git=${d%%\.git\/}
   mkdir $CODE_DIR/$d_x_git
   cd $CODE_DIR/$d_x_git
   (

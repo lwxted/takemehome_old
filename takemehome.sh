@@ -16,36 +16,40 @@ echo_status() {
 format_prompt "Setting up code environment..."
 
 # Setup Sublime Text 3 configs
-format_prompt "Cloning Sublime Text 3 config from git repo..."
-format_prompt "Killing all current Sublime Text instances..."
-killall Sublime\ Text
-echo_status
-rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3
-git clone --recursive git@github.com:lwxted/subl_config.git ~/Library/Application\ Support/Sublime\ Text\ 3
-echo_status
+# format_prompt "Cloning Sublime Text 3 config from git repo..."
+# format_prompt "Killing all current Sublime Text instances..."
+# killall Sublime\ Text
+# echo_status
+# rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3
+# git clone --recursive git@github.com:lwxted/subl_config.git ~/Library/Application\ Support/Sublime\ Text\ 3
+# echo_status
 
 # Sync repos
 format_prompt "Granting permissions to repo scripts and pushing to bin..."
-sudo chmod +x ${DIR}/repo
-sudo chmod +x ${DIR}/repo_pull.sh
-sudo chmod +x ${DIR}/repo_push.sh
-sudo chmod +x ${DIR}/coloring.sh
+sudo -s
+chmod +x ${DIR}/repo
+chmod +x ${DIR}/repo_pull.sh
+chmod +x ${DIR}/repo_push.sh
+chmod +x ${DIR}/coloring.sh
+chmod +x ${DIR}/abs_path.sh
 
 (
-  sudo rm -f /usr/local/bin/repo &&
-  sudo rm -f /usr/local/bin/repo_pull.sh &&
-  sudo rm -f /usr/local/bin/repo_push.sh &&
-  sudo rm -f /usr/local/bin/coloring.sh
+  rm -f /usr/local/bin/repo &&
+  rm -f /usr/local/bin/repo_pull.sh &&
+  rm -f /usr/local/bin/repo_push.sh &&
+  rm -f /usr/local/bin/coloring.sh &&
+  rm -f /usr/local/bin/abs_path.sh
 ) || echo_status
 
 (
-  sudo ln -s ${DIR}/repo /usr/local/bin/repo &&
-  sudo ln -s ${DIR}/repo_pull.sh /usr/local/bin/repo_pull.sh &&
-  sudo ln -s ${DIR}/repo_push.sh /usr/local/bin/repo_push.sh &&
-  sudo ln -s ${DIR}/coloring.sh /usr/local/bin/coloring.sh
+  ln -s ${DIR}/repo /usr/local/bin/repo &&
+  ln -s ${DIR}/repo_pull.sh /usr/local/bin/repo_pull.sh &&
+  ln -s ${DIR}/repo_push.sh /usr/local/bin/repo_push.sh &&
+  ln -s ${DIR}/coloring.sh /usr/local/bin/coloring.sh &&
+  ln -s ${DIR}/abs_path.sh /usr/local/bin/abs_path.sh
 ) || echo_status
-
 echo_status
+exit
 
 DEST="${HOME}/Documents/repo"
 format_prompt "Syncing all code from Dropbox repos to $DEST..."

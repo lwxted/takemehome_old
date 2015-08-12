@@ -2,8 +2,17 @@
 
 # Push specified repos to Dropbox for backup.
 
+if [ $# -lt 1 ] ; then
+
+cat<<HELP
+  Not enough arguments.
+HELP
+  exit 0
+fi
+
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . ${DIR}/coloring.sh
+. ${DIR}/abs_path.sh
 
 START_DIR=$(pwd)
 
@@ -31,6 +40,7 @@ fi
 
 for PROJ in $*
 do
+  PROJ=$(abs_path $PROJ)
   PROJ_NAME="$(basename $PROJ).git"
   if [ -d $PROJ ] ; then
     cd $PROJ

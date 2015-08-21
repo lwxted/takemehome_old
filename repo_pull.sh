@@ -44,7 +44,7 @@ for d in *\.git/ ; do
   fi
   d_x_git=${d%%\.git\/}
   if [ -s $CODE_DIR/$d_x_git ] ; then
-    bail "$d is already pulled down." && continue
+    format_warning "$d is already pulled down." && continue
   fi
   mkdir $CODE_DIR/$d_x_git
   cd $CODE_DIR/$d_x_git

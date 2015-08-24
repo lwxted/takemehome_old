@@ -82,8 +82,8 @@ do
         git remote add all "$DB_REPO/$PROJ_NAME" 2>/dev/null ||
         (
           # If that fails, master already exists -- we re-add the master
-          git remote set-url all --push --delete "$DB_REPO/$PROJ_NAME" &&
-          git remote set-url all --push --add "$DB_REPO/$PROJ_NAME"
+          git remote set-url all --delete --push "$DB_REPO/$PROJ_NAME" &&
+          git remote set-url all --add --push "$DB_REPO/$PROJ_NAME"
         )
       )
     ) ||

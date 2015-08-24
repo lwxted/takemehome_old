@@ -6,6 +6,6 @@ if [ "$1" = "pull" ] ; then
   ${DIR}/repo_pull.sh $(echo "${*:2}")
 elif [ "$1" = "push" ] ; then
   ${DIR}/repo_push.sh $(echo "${*:2}")
-elif [ "$1" = "remote_add" ] ; then
-  ${DIR}/repo_remote_add.sh $(echo "${*:2}")
+elif [ "$1" = "remote" ] ; then
+  ${DIR}/repo_remote.sh $(echo "${*:2}")
 fi

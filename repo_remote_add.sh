@@ -17,5 +17,5 @@ REMOTE_NAME="$1"
 REMOTE_URL="$2"
 
 (git remote add $REMOTE_NAME $REMOTE_URL) || (format_fail "")
-(git remote set-url --push --add all $REMOTE_URL) || (format_fail "")
+(git remote set-url --add --push all $REMOTE_URL) || (format_fail "")
 format_ok ""

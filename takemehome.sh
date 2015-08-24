@@ -18,10 +18,10 @@ format_prompt "Setting up code environment..."
 
 # Setup Sublime Text 3 configs
 format_prompt "Cloning Sublime Text 3 config from git repo..."
-SUBLIME_REPO="${HOME}/Library/Application Support/Sublime Text 3/"
-if [ -s "${SUBLIME_REPO}/.git" ] ; then
+SUBLIME_REPO="${HOME}/Library/Application Support/Sublime Text 3"
+if [ -d "${SUBLIME_REPO}/.git" ] ; then
   if [ ! -z "$(git status --porcelain)" ] ; then
-    echo "Your Sublime Text config repo has uncommitted changes."
+    format_warning "Your Sublime Text config repo has uncommitted changes."
     read -p "Are you sure to discard your current repo? [y/n] " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]

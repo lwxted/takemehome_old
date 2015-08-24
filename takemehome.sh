@@ -19,17 +19,14 @@ format_prompt "Setting up code environment..."
 # Setup Sublime Text 3 configs
 format_prompt "Cloning Sublime Text 3 config from git repo..."
 SUBLIME_REPO="${HOME}/Library/Application Support/Sublime Text 3/"
-if [ -s "$SUBLIME_REPO" ] ; then
-  cd "$SUBLIME_REPO"
-  if [ -s '.git' ] ; then
-    if [ ! -z "$(git status --porcelain)" ] ; then
-      echo "Your Sublime Text config repo has uncommitted changes."
-      read -p "Are you sure to discard your current repo? [y/n] " -n 1 -r
-      echo
-      if [[ ! $REPLY =~ ^[Yy]$ ]]
-      then
-        exit 1
-      fi
+if [ -s "${SUBLIME_REPO}/.git" ] ; then
+  if [ ! -z "$(git status --porcelain)" ] ; then
+    echo "Your Sublime Text config repo has uncommitted changes."
+    read -p "Are you sure to discard your current repo? [y/n] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+      exit 1
     fi
   fi
 fi
@@ -37,10 +34,10 @@ fi
 format_prompt "Killing all current Sublime Text instances..."
 killall Sublime\ Text
 rm -rf "$SUBLIME_REPO"
-git clone --recursive git@github.com:lwxted/subl_config.git ~/Library/Application\ Support/Sublime\ Text\ 3
+git clone --recursive git@github.com:lwxted/subl_config.git "$SUBLIME_REPO"
 echo_status
 
-Sync repos
+# Sync repos
 format_prompt "Granting permissions to repo scripts and pushing to bin..."
 
 sudo chmod +x ${DIR}/repo

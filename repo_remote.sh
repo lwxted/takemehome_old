@@ -14,10 +14,10 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 . ${DIR}/abs_path.sh
 
 if [ "$1" = "add" ] ; then
-  REMOTE_NAME="$1"
-  REMOTE_URL="$2"
+  REMOTE_NAME="$2"
+  REMOTE_URL="$3"
 
-  if [ ! -s "${DIR}/.git" ]
+  if [ ! -s "$(pwd)/.git" ] ; then
     format_fail "Must be invoked in root git repo directory."
     exit 1
   fi
